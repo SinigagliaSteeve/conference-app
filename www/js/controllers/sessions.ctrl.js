@@ -7,10 +7,18 @@
     function SessionsCtrl($scope, SessionsSrv) {
         var vm = this;
 
-        SessionsSrv.all()
-            .then(sessions => {
-            vm.sessions = sessions;
-            console.log('sessions',sessions);
-        })
+        init();
+
+        function init() {
+            SessionsSrv.all()
+                .then(sessions => {
+                    $scope.$apply(() => {
+                        vm.sessions = sessions;
+                    });
+                });
+        }
+
+
+
     }
 })();

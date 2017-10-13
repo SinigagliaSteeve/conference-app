@@ -7,9 +7,7 @@
 <ion-view view-title="{{vm.session.title}}">
 
   <ion-content class="padding">
-      
-    <p>
-      {{vm.session.description}}
-    </p>
+
+    <div ng-bind-html="vm.session.description"></div>
   </ion-content>
 </ion-view>

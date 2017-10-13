@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('conferenceApp', ['ionic'])
+angular.module('conferenceApp', ['ionic', 'ngCordova'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -93,12 +93,13 @@ angular.module('conferenceApp', ['ionic'])
         }
       })
 
-      .state('tab.account', {
-        url: '/account',
+      .state('tab.device', {
+        url: '/device',
         views: {
-          'tab-account': {
-            templateUrl: 'templates/tab-account.html',
-            controller: 'AccountCtrl'
+          'tab-device': {
+            templateUrl: 'templates/tab-device.html',
+            controller: 'DeviceInfoCtrl',
+            controllerAs: 'vm'
           }
         }
       });
