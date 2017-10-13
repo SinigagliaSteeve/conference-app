@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('conferenceApp')
 
 .controller('DashCtrl', function($scope) {})
 
@@ -17,8 +17,12 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, SessionsSrv) {
   $scope.chat = Chats.get($stateParams.chatId);
+  SessionsSrv.all()
+    .then(sessions => {
+      console.log("sessions",sessions);
+    })
 })
 
 .controller('AccountCtrl', function($scope) {
