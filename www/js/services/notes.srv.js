@@ -1,26 +1,24 @@
 angular.module('conferenceApp')
 
-    .factory('NotesSrv', function () {
+    .factory('NotesSrv', function (uuid2) {
         // Might use a resource here that returns a JSON array
-        var notes = [{
-            id: 0,
-            sessionId: 0,
-            comment: "Ceci est un début de note",
-            pictures: [
-                "../img/notes/note1.jpg",
-                "../img/notes/note2.jpg",
-            ]
-        },
-        {
-            id: 1,
-            sessionId: 1,
-            comment: "Note id1",
-            pictures: [
-                "../img/notes/note3.jpg",
-                "../img/notes/note4.jpg",
-            ]
-        }
-        ];
+        var storedNote = localforage.createInstance({
+            name: "notes"
+        })
+
+        function saveNote(note) {
+            if (!note.id) {
+                note.id = uuid2.newuuid();
+            }
+
+            console.log("note saved", note);
+
+            storedNote.setItem(note.id.toString(),note);
+            // storedNote.getItem(note.id.toString()).then(localNote => {
+            //     localNote = note;
+            //     storedNote.setItem(note.id.toString(), localNote);
+            // })
+        };
 
         return {
             all: function () {
@@ -40,6 +38,21 @@ angular.module('conferenceApp')
                     }
                 }
                 return null;
+            },
+
+            getForSessionId: function (sessionId) {
+                return storedNote.iterate((note, key) => {
+                    if (note.sessionId == sessionId) {
+                        return note;
+                    }
+                })
+                    .then(note => {
+                        return note;
+                    })
+            },
+
+            save: function (note) {
+                return saveNote(note);
             }
             // remove: function(chat) {
             //   chats.splice(chats.indexOf(chat), 1);

@@ -5,7 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('conferenceApp', ['ionic', 'ngCordova'])
+
+angular.module('conferenceApp', ['ionic', 'ngCordova', 'base64', 'angularUUID2'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -20,6 +21,39 @@ angular.module('conferenceApp', ['ionic', 'ngCordova'])
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+
+      var notes = [{
+        id: 0,
+        sessionId: 0,
+        comment: "Ceci est un début de note",
+        pictures: [
+          "../img/notes/note1.jpg",
+          "../img/notes/note2.jpg",
+        ]
+      },
+      {
+        id: 1,
+        sessionId: 1859,
+        comment: "Note id1",
+        pictures: [
+          "../img/notes/note3.jpg",
+          "../img/notes/note4.jpg",
+        ]
+      }
+      ];
+
+      var storeNotes = localforage.createInstance({
+        name: "notes"
+      });
+
+      //initialize some note if the database is empty (demo).
+      storeNotes.length().then(size => {
+        if (size === 0) {
+          for (key in notes) {
+            storeNotes.setItem(key, notes[key]);
+          }
+        }
+      })
     });
   })
 
