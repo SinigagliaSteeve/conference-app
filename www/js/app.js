@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('conferenceApp', ['ionic', 'ngCordova', 'base64', 'angularUUID2'])
+angular.module('conferenceApp', ['ionic', 'ngCordova', 'base64', 'angularUUID2', 'ion-alpha-scroll'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -33,7 +33,7 @@ angular.module('conferenceApp', ['ionic', 'ngCordova', 'base64', 'angularUUID2']
         voices: [
 
         ],
-        videos:[]
+        videos: []
       },
       {
         id: 1,
@@ -43,10 +43,10 @@ angular.module('conferenceApp', ['ionic', 'ngCordova', 'base64', 'angularUUID2']
           "../img/notes/note3.jpg",
           "../img/notes/note4.jpg",
         ],
-        voices:[
+        voices: [
 
         ],
-        videos:[]
+        videos: []
       }
       ];
 
@@ -94,21 +94,23 @@ angular.module('conferenceApp', ['ionic', 'ngCordova', 'base64', 'angularUUID2']
         }
       })
 
-      .state('tab.chats', {
-        url: '/chats',
+      .state('tab.speakers', {
+        url: '/speakers',
         views: {
-          'tab-chats': {
-            templateUrl: 'templates/tab-chats.html',
-            controller: 'ChatsCtrl'
+          'tab-speakers': {
+            templateUrl: 'templates/tab-speakers.html',
+            controller: 'SpeakersCtrl',
+            controllerAs: 'vm'
           }
         }
       })
-      .state('tab.chat-detail', {
-        url: '/chats/:chatId',
+      .state('tab.speaker-detail', {
+        url: '/speakers/:speakerId',
         views: {
-          'tab-chats': {
-            templateUrl: 'templates/chat-detail.html',
-            controller: 'ChatDetailCtrl'
+          'tab-speakers': {
+            templateUrl: 'templates/speaker-detail.html',
+            controller: 'SpeakerDetailCtrl',
+            controllerAs: 'vm'
           }
         }
       })

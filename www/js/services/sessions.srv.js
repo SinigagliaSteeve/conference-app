@@ -27,6 +27,24 @@ function SessionsSrv() {
         .then(sessions => {
           return sessions[sessionId];
         })
+    },
+
+    getSessionsForSpeakerId: function (speakerId) {
+      return fetchSessions
+        .then(sessions => {
+          let speakerSessions = [];
+          for (key in sessions) {
+
+            if (sessions[key].speakers) {
+              sessions[key].speakers.forEach(s => {
+                if(s==speakerId){
+                  speakerSessions.push(sessions[key]);
+                }
+              })
+            }
+          }
+          return speakerSessions;
+        })
     }
     // remove: function(chat) {
     //   chats.splice(chats.indexOf(chat), 1);

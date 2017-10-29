@@ -4,7 +4,7 @@
     angular.module('conferenceApp')
         .controller('SessionDetailCtrl', SessionDetailCtrl);
 
-    function SessionDetailCtrl($scope, $ionicModal, $stateParams, $cordovaCamera, $cordovaImagePicker, $cordovaCapture, $cordovaFile, SessionsSrv, NotesSrv, SpeakersSrv, $ionicPopup) {
+    function SessionDetailCtrl($scope, $state, $ionicHistory, $ionicModal, $stateParams, $cordovaCamera, $cordovaImagePicker, $cordovaCapture, $cordovaFile, SessionsSrv, NotesSrv, SpeakersSrv, $ionicPopup) {
         var vm = this;
         vm.speakers = [];
         vm.note = {};
@@ -37,6 +37,14 @@
                 });
         }
 
+        $scope.myGoBack = function () {
+            $ionicHistory.goBack();
+
+        }
+
+        vm.navigateToSpeaker = function (speakerId) {
+            $state.go('tab.speaker-detail',{'speakerId':speakerId});
+        }
         $scope.$watch('vm.note.comment', (newVal, oldVal) => {
             if (newVal !== oldVal && oldVal != undefined) {
                 vm.formModified = true;

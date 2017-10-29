@@ -1,0 +1,48 @@
+<ion-view view-title="Speakers">
+  <ion-nav-buttons side="left">
+    <button class="button button-clear" ng-click="myGoBack()">
+      <i class="icon ion-ios-arrow-back"></i>
+      Back</button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="list card">
+
+      <div class="item item-avatar">
+        <img src="{{vm.speaker.photoUrl}}">
+        <h2>{{vm.speaker.name}}</h2>
+        <p>{{vm.speaker.company}}</p>
+      </div>
+
+      <div class="item item-body">
+        <span ng-repeat="tag in vm.speaker.tags">#{{tag}} </span>
+        <!-- <img class="full-image" src="delorean.jpg"> -->
+        <p>
+          {{vm.speaker.bio}}
+        </p>
+        <div class="row">
+          <div ng-repeat="social in vm.speaker.socials">
+            <a href="{{social.link}}"><img ng-src={{social.icon}} class="social-icon"></a>
+            
+          </div>
+        </div>
+
+        <div>
+          <h2>Liste des sessions</h2>
+          <ul>
+            <li ng-repeat="session in vm.speaker.sessions">
+              <a href="#/tab/sessions/{{session.id}}">{{session.title}}</a>
+            </li>
+          </ul>
+        </div>
+        <!-- <p>
+                <a href="#" class="button button-icon icon ion-social-twitter">
+                  <i></i>
+                </a>
+                <a href="#" class="button button-icon icon ion-social-googleplus"></a>
+                <a href="#" class="button button-icon icon ion-social-github"></a>
+              </p> -->
+      </div>
+
+    </div>
+  </ion-content>
+</ion-view>

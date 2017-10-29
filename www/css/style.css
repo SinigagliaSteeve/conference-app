@@ -26,3 +26,9 @@
     -ms-flex-align: center !important;
     align-items: center !important;
 }
+
+.social-icon{
+    height: 30;
+    width: 30px;
+    margin-right: 1em;
+}

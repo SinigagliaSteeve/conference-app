@@ -8,6 +8,7 @@
     "ngCordova": "^0.1.27-alpha",
     "angular-base64": "^2.0.5",
     "localforage": "^1.5.3",
-    "angular-uuid": "^0.1.0"
+    "angular-uuid": "^0.1.0",
+    "ion-alpha-scroll": "^0.1.3"
   }
 }
