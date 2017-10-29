@@ -8,6 +8,7 @@
         var vm = this;
         vm.speakers = [];
         vm.note = {};
+        vm.formModified = false;
 
         init();
 
@@ -31,6 +32,14 @@
                     return session;
                 });
         }
+
+        $scope.$watch('vm.note.comment', (newVal, oldVal) => {
+            if (newVal !== oldVal && oldVal!=undefined) {
+                vm.formModified = true;
+            } else {
+                vm.formModified = false;
+            }
+        })
 
         vm.saveNote = function () {
             NotesSrv.save(vm.note);
@@ -62,9 +71,9 @@
         vm.selectPictures = function () {
             let options = {
                 sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                destinationType: Camera.DestinationType.FILE_URI,      
+                destinationType: Camera.DestinationType.FILE_URI,
                 quality: 100,
-                encodingType: Camera.EncodingType.JPEG,      
+                encodingType: Camera.EncodingType.JPEG,
                 correctOrientation: true
             };
 

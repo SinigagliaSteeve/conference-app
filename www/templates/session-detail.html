@@ -37,16 +37,20 @@
 
       <ion-slide-page ion-slide-tab-label="My notes">
         <ion-scroll style="height: 100%">
-          <form>
-            <h3>{{vm.session.title}}</h3>
-            <label style="height:200px" class="item item-input item-stacked-label">
-              <span class="input-label">My note</span>
-              <input ng-model="vm.note.comment" type="text" placeholder="Start to write a note...">
-            </label>
-            <button ng-click="vm.saveNote()" class="button icon-right ion-ios-download-outline button-positive">Save note</button>
-          </form>
+          <div class="card">
+            <form>
+              <h3>{{vm.session.title}}</h3>
+              <label style="height:200px" class="item item-input item-stacked-label">
+                <i class="icon ion-clipboard placeholder-icon"></i>
+                <!-- <span class="input-label">My note</span> -->
+                <input ng-model="vm.note.comment" type="text" placeholder="Start to write a note...">
+              </label>
+              <button ng-disabled ="!vm.formModified" ng-click="vm.saveNote()" class="button icon-right ion-ios-download-outline button-positive">Save note</button>
+            </form>
+          </div>
 
-          <div style="margin-top:1em">
+
+          <div class="card" style="margin-top:1em">
             <button class="button icon ion-camera" ng-click="vm.takePhoto()">
               Take Photo
             </button>
