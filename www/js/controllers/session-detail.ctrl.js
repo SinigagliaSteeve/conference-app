@@ -4,7 +4,7 @@
     angular.module('conferenceApp')
         .controller('SessionDetailCtrl', SessionDetailCtrl);
 
-    function SessionDetailCtrl($scope, $ionicModal, $stateParams, $cordovaCamera, $cordovaFile, SessionsSrv, NotesSrv, SpeakersSrv, uuid2) {
+    function SessionDetailCtrl($scope, $ionicModal, $stateParams, $cordovaCamera, $cordovaImagePicker, $cordovaFile, SessionsSrv, NotesSrv, SpeakersSrv, $ionicPopup) {
         var vm = this;
         vm.speakers = [];
         vm.note = {};
@@ -42,7 +42,7 @@
                 destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.CAMERA,
                 allowEdit: false,
-                correctOrientation: true,                
+                correctOrientation: true,
                 encodingType: Camera.EncodingType.JPEG,
                 popoverOptions: CameraPopoverOptions,
                 saveToPhotoAlbum: true
@@ -59,12 +59,34 @@
                 });
         }
 
+        vm.selectPictures = function () {
+            let options = {
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                destinationType: Camera.DestinationType.FILE_URI,      
+                quality: 100,
+                encodingType: Camera.EncodingType.JPEG,      
+                correctOrientation: true
+            };
+
+            $cordovaImagePicker.getPictures(options)
+                .then(function (results) {
+                    for (var i = 0; i < results.length; i++) {
+                        vm.note.pictures.push(results[i]); //todo copy to local storage app ?
+                    }
+                    NotesSrv.save(vm.note);
+                }, function (error) {
+                    // error getting photos
+                });
+        }
+
         $ionicModal.fromTemplateUrl('modal.html', function (modal) {
             $scope.gridModal = modal;
         }, {
                 scope: $scope,
                 animation: 'slide-in-up'
-            })
+            });
+
+
         $scope.openModal = function (data) {
             $scope.inspectionItem = data;
             $scope.gridModal.show();

@@ -8,7 +8,7 @@
 
 
 <ion-view view-title="Sessions">
-    <script id="modal.html" type="text/ng-template">
+  <script id="modal.html" type="text/ng-template">
       <div class="modal" ng-click="closeModal()">
       <ion-content>
       <img src="{{pictureToDisplay}}" style="display:block; width:100%; max-width:600px; margin:auto"/>
@@ -47,18 +47,18 @@
           </form>
 
           <div style="margin-top:1em">
-            <button class="button button-full button-assertive" ng-click="vm.takePhoto()">
+            <button class="button icon ion-camera" ng-click="vm.takePhoto()">
               Take Photo
             </button>
 
-            <div ng-show="vm.note.pictures">
+            <div>
               Photos
               <div class="row">
                 <div class="col col-25" ng-repeat="picture in vm.note.pictures">
                   <img ng-src="{{picture}}" ng-click="openModal(picture)" style="text-align: center; width:auto; height:auto">
                 </div>
                 <div class="col col-25">
-                  <button class="button button-outline button-positive ion-plus-round" style="height:100%;text-align: center"></button>
+                  <button ng-click="vm.selectPictures()" class="button button-outline button-positive ion-plus-round" style="height:100%;text-align: center"></button>
                 </div>
               </div>
             </div>
