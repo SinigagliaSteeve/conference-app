@@ -4,7 +4,7 @@
     angular.module('conferenceApp')
         .controller('SessionDetailCtrl', SessionDetailCtrl);
 
-    function SessionDetailCtrl($scope, $ionicModal, $stateParams, $cordovaCamera, $cordovaImagePicker, $cordovaFile, SessionsSrv, NotesSrv, SpeakersSrv, $ionicPopup) {
+    function SessionDetailCtrl($scope, $ionicModal, $stateParams, $cordovaCamera, $cordovaImagePicker, $cordovaCapture, $cordovaFile, SessionsSrv, NotesSrv, SpeakersSrv, $ionicPopup) {
         var vm = this;
         vm.speakers = [];
         vm.note = {};
@@ -25,7 +25,11 @@
                     })
 
                     NotesSrv.getForSessionId($stateParams.sessionId).then(note => {
-                        vm.note = note ? note : { pictures: [] };
+                        vm.note = note ? note : {
+                            pictures: [],
+                            voices: [],
+                            videos: []
+                        };
                         vm.note.sessionId = $stateParams.sessionId;
                     })
                     //get notes for this session
@@ -34,7 +38,7 @@
         }
 
         $scope.$watch('vm.note.comment', (newVal, oldVal) => {
-            if (newVal !== oldVal && oldVal!=undefined) {
+            if (newVal !== oldVal && oldVal != undefined) {
                 vm.formModified = true;
             } else {
                 vm.formModified = false;
@@ -43,6 +47,38 @@
 
         vm.saveNote = function () {
             NotesSrv.save(vm.note);
+        }
+
+        vm.captureAudio = function () {
+            let options = {
+                limit: 1
+            }
+            $cordovaCapture.captureAudio(options)
+                .then(audioData => {
+                    vm.note.voices.push(audioData);
+                });
+        }
+
+        vm.takeVideo = function () {
+            let options = {
+                limit: 1
+            }
+
+            // navigator.mediaDevices.capture.captureVideo(onSuccess, onError, options);
+
+            // function onSuccess(mediaFiles) {
+            //     mediaFiles.forEach(media => {
+            //         vm.note.videos.push(media.fullPath);
+            //     })
+            // }
+            $cordovaCapture.captureVideo(options).then(function (videoData) {
+                videoData.forEach(v => {
+                    vm.note.videos.push(v.fullPath);
+                })
+                NotesSrv.save(vm.note);
+
+                // NotesSrv.save(vm.note);
+            })
         }
 
         vm.takePhoto = function () {
@@ -90,18 +126,39 @@
 
         $ionicModal.fromTemplateUrl('modal.html', function (modal) {
             $scope.gridModal = modal;
-        }, {
+        },
+            {
+                scope: $scope,
+                animation: 'slide-in-up'
+            });
+
+        $ionicModal.fromTemplateUrl('modalVideo.html', function (modal) {
+            $scope.videoModal = modal;
+        },
+            {
                 scope: $scope,
                 animation: 'slide-in-up'
             });
 
 
+
         $scope.openModal = function (data) {
             $scope.inspectionItem = data;
             $scope.gridModal.show();
-            console.log(data);
             $scope.pictureToDisplay = data;
         }
+
+        $scope.openModal = function (data) {
+            $scope.inspectionItem = data;
+            $scope.videoModal.show();
+            $scope.videoToDisplay = data;
+        }
+
+
+        $scope.closeModal = function () {
+            $scope.videoModal.hide();
+        }
+
         $scope.closeModal = function () {
             $scope.gridModal.hide();
         }

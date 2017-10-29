@@ -29,7 +29,11 @@ angular.module('conferenceApp', ['ionic', 'ngCordova', 'base64', 'angularUUID2']
         pictures: [
           "../img/notes/note1.jpg",
           "../img/notes/note2.jpg",
-        ]
+        ],
+        voices: [
+
+        ],
+        videos:[]
       },
       {
         id: 1,
@@ -38,7 +42,11 @@ angular.module('conferenceApp', ['ionic', 'ngCordova', 'base64', 'angularUUID2']
         pictures: [
           "../img/notes/note3.jpg",
           "../img/notes/note4.jpg",
-        ]
+        ],
+        voices:[
+
+        ],
+        videos:[]
       }
       ];
 
