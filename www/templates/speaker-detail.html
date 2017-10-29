@@ -13,6 +13,19 @@
         <p>{{vm.speaker.company}}</p>
       </div>
 
+      <div>
+          <li class="item item-toggle">
+              Ajouter aux contacts
+              <label class="toggle toggle-balanced">
+                <input type="checkbox" ng-click="vm.manageContact()" ng-model="vm.savedContact">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+           </li>
+      </div>
+
+
       <div class="item item-body">
         <span ng-repeat="tag in vm.speaker.tags">#{{tag}} </span>
         <!-- <img class="full-image" src="delorean.jpg"> -->
@@ -21,8 +34,10 @@
         </p>
         <div class="row">
           <div ng-repeat="social in vm.speaker.socials">
-            <a href="{{social.link}}"><img ng-src={{social.icon}} class="social-icon"></a>
-            
+            <a href="{{social.link}}">
+              <img ng-src={{social.icon}} class="social-icon">
+            </a>
+
           </div>
         </div>
 
