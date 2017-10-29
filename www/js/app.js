@@ -102,6 +102,28 @@ angular.module('conferenceApp', ['ionic', 'ngCordova'])
             controllerAs: 'vm'
           }
         }
+      })
+
+      .state('tab.notes', {
+        url: '/notes',
+        views: {
+          'tab-notes': {
+            templateUrl: 'templates/tab-notes.html',
+            controller: 'NotesCtrl',
+            controllerAs: 'vm'
+          }
+        }
+      })
+
+      .state('tab.note-detail', {
+        url: '/notes/:noteId',
+        views: {
+          'tab-notes': {
+            templateUrl: 'templates/note-detail.html',
+            controller: 'NoteDetailCtrl',
+            controllerAs: 'vm'
+          }
+        }
       });
 
     // if none of the above states are matched, use this as the fallback

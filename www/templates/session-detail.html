@@ -4,10 +4,25 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{vm.session.title}}">
+<ion-view view-title="Back to sessions">
 
   <ion-content class="padding">
 
+    <div>
+      <h3>{{vm.session.title}}</h3>
+
+    </div>
     <div ng-bind-html="vm.session.description"></div>
+
+    
+    <div ng-repeat="speaker in vm.speakers">
+      <p>{{speaker.name}}</p>
+      <p>{{speaker.company}}</p>
+      <p>{{speaker.bio}}</p>
+      <div ng-repeat="social in speaker.socials">
+        <!-- todo image cliquable  -->
+        {{social.name}} : {{social.link}}
+      </div>
+    </div>
   </ion-content>
 </ion-view>

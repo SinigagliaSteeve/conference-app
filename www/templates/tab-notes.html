@@ -1,0 +1,13 @@
+<ion-view view-title="Notes">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="note in vm.notes" type="item-text-wrap"
+                href="#/tab/notes/{{note.id}}">
+                <!-- <img ng-src="{{chat.face}}"> -->
+                <h2>{{note.sessionId}}</h2>
+                <p>{{note.comment}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

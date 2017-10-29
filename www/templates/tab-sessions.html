@@ -1,13 +1,28 @@
 <ion-view view-title="Sessions">
-    <ion-content>
-      <ion-list>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="session in vm.sessions" type="item-text-wrap" href="#/tab/sessions/{{session.id}}">
-          <!-- <img ng-src="{{chat.face}}"> -->
-          <h2>{{session.title}}</h2>
-          <p>{{session.tags}}</p>
-          <i class="icon ion-chevron-right icon-accessory"></i>
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-view>
-  
+  <ion-content scroll="false">
+    <ion-slides slider="slider" ion-slides-tabs slide-tabs-scrollable="false">
+      <ion-slide-page ng-repeat="day in vm.schedule" ion-slide-tab-label={{day.dateReadable}}>
+        <ion-scroll style="height: 100%">
+          <div ng-repeat="timeslot in day.timeslots">
+            <h1 style="margin-left:10px">{{timeslot.startTime}}</h1>
+            <ion-list>
+              <ion-item ng-repeat="session in timeslot.sessions" class="item-remove-animate  item-icon-right" type="item-text-wrap" href="#/tab/sessions/{{session[0].id}}">
+                <h2>{{session[0].title}}</h2>
+                <div class="row" style="padding:0; overflow:auto">
+                  <div style="float:left">
+                    <p>{{session[0].track.title}}</p>
+                  </div>
+                  <div style="float:right">
+                    <p>{{session[0].category}}</p>
+                  </div>
+                </div>
+                <img ng-show="session[0].language" ng-src="{{session[0].language}}" style="width: 32px; height: 32px">
+                <i class="icon ion-chevron-right ic on-accessory"></i>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-scroll>
+      </ion-slide-page>
+    </ion-slides>
+  </ion-content>
+</ion-view>
