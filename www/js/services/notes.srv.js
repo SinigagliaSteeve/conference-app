@@ -13,23 +13,13 @@ angular.module('conferenceApp')
 
             console.log("note saved", note);
 
-            storedNote.setItem(note.id.toString(),note);
-            // storedNote.getItem(note.id.toString()).then(localNote => {
-            //     localNote = note;
-            //     storedNote.setItem(note.id.toString(), localNote);
-            // })
+            storedNote.setItem(note.id.toString(), note);
         };
 
         return {
             all: function () {
                 return notes;
             },
-            // get: function (sessionId) {
-            //     return fetchSessions
-            //         .then(sessions => {
-            //             return sessions[sessionId];
-            //         })
-            // }
 
             get: function (noteId) {
                 for (var i = 0; i < notes.length; i++) {

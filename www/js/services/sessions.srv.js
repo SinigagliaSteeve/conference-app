@@ -7,13 +7,17 @@ function SessionsSrv() {
   var fetchSessions = fetch("https://raw.githubusercontent.com/DevInstitut/conference-data/master/sessions.json")
     .then(response => {
       return response.json().then(sessions => {
+        let store = localforage.createInstance({ name: 'sessions' });
+        
         for (var id in sessions) {
           if (sessions[id].language === "fr") {
             sessions[id].language = "img/flags/fr-flag.png"
           } else if (sessions[id].language === "en") {
             sessions[id].language = "img/flags/en-flag.png"
           }
+          store.setItem(id,sessions[id]);
         }
+        
         return sessions;
       })
     });

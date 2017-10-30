@@ -8,7 +8,26 @@ function ScheduleSrv(SessionsSrv) {
     // Might use a resource here that returns a JSON array
 
     var fetchSchedule = fetch("https://raw.githubusercontent.com/DevInstitut/conference-data/master/schedule.json")
-        .then(response => response.json());
+        .then(response => response.json())
+        .then(schedule => {
+            let sessionsFormattedPromise = [];
+            
+            let store = localforage.createInstance({ name: 'schedule' });
+            schedule.forEach(day => {
+                day.timeslots.forEach(timeslot => {
+                    sessionsFormattedPromise.push(buildCompleteTimeslot(timeslot));
+                });
+            })
+            schedule.sort((first, second) => {
+                return new Date(first.date) - new Date(second.date);
+            });
+
+            schedule.forEach(day => {
+                store.setItem(day.date, day);
+            })
+
+            return schedule;
+        })
 
     function buildCompleteTimeslot(timeslot) {
         timeslot.sessions.forEach(s => {
@@ -33,19 +52,7 @@ function ScheduleSrv(SessionsSrv) {
         all: function () {
             let sessionsFormattedPromise = [];
 
-            return fetchSchedule.then(schedule => {
-                schedule.forEach(day => {
-                    day.timeslots.forEach(timeslot => {
-                        sessionsFormattedPromise.push(buildCompleteTimeslot(timeslot));
-                    });
-                })
-                schedule.sort((first, second) => {
-                    return new Date(first.date) - new Date(second.date);
-                });
-
-
-                return schedule;
-            })
+            return fetchSchedule;
         },
 
         getTimeSlotForSessionId(sessionId) {

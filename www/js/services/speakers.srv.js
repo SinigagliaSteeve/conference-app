@@ -7,12 +7,15 @@ function SpeakersSrv() {
     var fetchSpeakers = fetch("https://raw.githubusercontent.com/DevInstitut/conference-data/master/speakers.json")
         .then(response => {
             return response.json().then(speakers => {
+                let store = localforage.createInstance({ name: 'speakers' });
+                
                 for (var id in speakers) {
                     speakers[id].photoUrl = "https://devfest.gdgnantes.com/" + speakers[id].photoUrl;
                     speakers[id].socials = speakers[id].socials.map(social => {
                         social.icon = "img/socials/" + social.icon+".png";
                         return social;
                     })
+                    store.setItem(id,speakers[id])
                 }
                 return speakers;
             })

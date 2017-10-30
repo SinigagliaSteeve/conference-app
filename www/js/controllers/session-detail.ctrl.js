@@ -43,7 +43,7 @@
         }
 
         vm.navigateToSpeaker = function (speakerId) {
-            $state.go('tab.speaker-detail',{'speakerId':speakerId});
+            $state.go('tab.speaker-detail', { 'speakerId': speakerId });
         }
         $scope.$watch('vm.note.comment', (newVal, oldVal) => {
             if (newVal !== oldVal && oldVal != undefined) {
@@ -55,6 +55,7 @@
 
         vm.saveNote = function () {
             NotesSrv.save(vm.note);
+            alert("La note a été sauvegardée")
         }
 
         vm.captureAudio = function () {
@@ -140,13 +141,6 @@
                 animation: 'slide-in-up'
             });
 
-        $ionicModal.fromTemplateUrl('modalVideo.html', function (modal) {
-            $scope.videoModal = modal;
-        },
-            {
-                scope: $scope,
-                animation: 'slide-in-up'
-            });
 
 
 
@@ -154,17 +148,6 @@
             $scope.inspectionItem = data;
             $scope.gridModal.show();
             $scope.pictureToDisplay = data;
-        }
-
-        $scope.openModal = function (data) {
-            $scope.inspectionItem = data;
-            $scope.videoModal.show();
-            $scope.videoToDisplay = data;
-        }
-
-
-        $scope.closeModal = function () {
-            $scope.videoModal.hide();
         }
 
         $scope.closeModal = function () {
